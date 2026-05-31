@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbonely - Accueil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <style>
+        :root {
+            --primary-color: #2b6cb0;
+            --secondary-color: #4299e1;
+            --success-color: #38a169;
+            --warning-color: #d69e2e;
+            --danger-color: #e53e3e;
+            --dark-color: #2d3748;
+            --light-color: #f7fafc;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,218.7C672,235,768,245,864,224C960,203,1056,149,1152,138.7C1248,128,1344,160,1392,176L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-repeat: no-repeat;
+            background-position: bottom;
+        }
+        
+        .features-section {
+            padding: 80px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(39, 174, 106, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .cta-section {
+            background: var(--light-color);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(27, 142, 79, 0.3);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+        }
+        
+        .navbar-brand i {
+            color: var(--success-color);
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+        
+        .stat-label {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .language-selector a {
+            color: var(--light-color);
+            text-decoration: none;
+            margin: 0 10px;
+            opacity: 0.8;
+        }
+        
+        .language-selector a:hover {
+            opacity: 1;
+        }
+        
+        /* Mode sombre */
+        body.dark-mode {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+        
+        body.dark-mode .feature-card,
+        body.dark-mode .stat-card {
+            background-color: #2d3748;
+            color: #e2e8f0;
+        }
+        
+        body.dark-mode .cta-section {
+            background-color: #2d3748;
+        }
+        
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--dark-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Styles RTL pour l'arabe */
+        html[dir="rtl"] .text-start { text-align: right !important; }
+        html[dir="rtl"] .ms-auto { margin-left: 0 !important; margin-right: auto !important; }
+        html[dir="rtl"] .me-2 { margin-right: 0 !important; margin-left: 0.5rem !important; }
+        html[dir="rtl"] .navbar-nav { padding-right: 0; }
+        html[dir="rtl"] .dropdown-menu { text-align: right; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-leaf me-2"></i>Carbonely
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Fonctionnalités</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#stats">Impact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">À propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html" style="color: var(--primary-color); font-weight: 600;">
+                            <i class="fas fa-sign-in-alt me-1"></i>Connexion
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown language-selector">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-globe"></i> <span id="currentLang">FR</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-lang="fr">Français</a></li>
+                            <li><a class="dropdown-item" href="#" data-lang="en">English</a></li>
+                            <li><a class="dropdown-item" href="#" data-lang="ar">العربية</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4" data-i18n="hero_title">Réduisez votre empreinte carbone numérique</h1>
+                    <p class="lead mb-4" data-i18n="hero_description">Carbonely est la plateforme qui vous aide à mesurer, analyser et réduire l'impact environnemental de vos activités numériques.</p>
+                    <a href="login.html" class="btn btn-primary-custom btn-lg me-3">
+                        <i class="fas fa-rocket me-2"></i><span data-i18n="start_now">Commencer maintenant</span>
+                    </a>
+                    <a href="#features" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-info-circle me-2"></i><span data-i18n="learn_more">En savoir plus</span>
+                    </a>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <div class="position-relative">
+                        <div class="stat-card d-inline-block mx-2" style="transform: rotate(-5deg);">
+                            <div class="stat-number">-35%</div>
+                            <div class="stat-label" data-i18n="co2_streaming">CO₂ Streaming</div>
+                        </div>
+                        <div class="stat-card d-inline-block mx-2" style="transform: rotate(2deg);">
+                            <div class="stat-number">-28%</div>
+                            <div class="stat-label" data-i18n="co2_emails">CO₂ Emails</div>
+                        </div>
+                        <div class="stat-card d-inline-block mx-2" style="transform: rotate(5deg);">
+                            <div class="stat-number">-42%</div>
+                            <div class="stat-label" data-i18n="co2_cloud">CO₂ Cloud</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3" data-i18n="features_title">Fonctionnalités principales</h2>
+                <p class="lead text-muted" data-i18n="features_description">Découvrez comment Carbonely peut vous aider à réduire votre impact environnemental</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tv"></i>
+                        </div>
+                        <h4 data-i18n="feature1_title">Suivi du Streaming</h4>
+                        <p data-i18n="feature1_description">Mesurez l'impact carbone de vos sessions Netflix, YouTube et autres plateformes de streaming. Recevez des recommandations pour réduire votre consommation.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4 data-i18n="feature2_title">Gestion des Emails</h4>
+                        <p data-i18n="feature2_description">Analysez l'empreinte carbone de votre boîte mail. Identifiez les emails inutiles et optimisez votre communication numérique.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h4 data-i18n="feature3_title">Cloud Computing</h4>
+                        <p data-i18n="feature3_description">Surveillez l'impact environnemental de votre stockage cloud et de vos services SaaS. Optimisez votre utilisation des ressources.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h4 data-i18n="feature4_title">Appareils Électroniques</h4>
+                        <p data-i18n="feature4_description">Suivez la consommation énergétique de vos appareils. Recevez des conseils pour prolonger leur durée de vie et réduire les déchets électroniques.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4 data-i18n="feature5_title">Tableau de Bord Intelligent</h4>
+                        <p data-i18n="feature5_description">Visualisez vos progrès avec des graphiques interactifs. Suivez vos économies de CO₂ et comparez vos performances avec des objectifs personnalisés.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h4 data-i18n="feature6_title">Recommandations Personnalisées</h4>
+                        <p data-i18n="feature6_description">Recevez des conseils adaptés à vos habitudes numériques. Des actions concrètes pour réduire votre empreinte carbone au quotidien.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3" data-i18n="impact_title">Impact Environnemental</h2>
+                <p class="lead text-muted" data-i18n="impact_description">Les chiffres qui démontrent l'importance de notre mission</p>
+            </div>
+            
+            <div class="row text-center">
+                <div class="col-md-3 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="3.7">3.7</div>
+                        <div class="stat-label" data-i18n="stat1_label">% des émissions mondiales de CO₂</div>
+                        <p class="small mt-2" data-i18n="stat1_description">Provenant du secteur numérique</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="416.2">416.2</div>
+                        <div class="stat-label" data-i18n="stat2_label">TWh d'électricité</div>
+                        <p class="small mt-2" data-i18n="stat2_description">Consommés par les data centers en 2023</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="1.6">1.6</div>
+                        <div class="stat-label" data-i18n="stat3_label">Kg de CO₂</div>
+                        <p class="small mt-2" data-i18n="stat3_description">Pour 1 heure de streaming vidéo</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="50">50</div>
+                        <div class="stat-label" data-i18n="stat4_label">Million de tonnes</div>
+                        <p class="small mt-2" data-i18n="stat4_description">Déchets électroniques générés annuellement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="about" class="cta-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-5 fw-bold mb-4" data-i18n="cta_title">Prêt à faire la différence ?</h2>
+                    <p class="lead mb-5" data-i18n="cta_description">Rejoignez des milliers d'utilisateurs qui ont déjà réduit leur empreinte carbone numérique grâce à Carbonely. C'est simple, efficace et cela fait une réelle différence pour notre planète.</p>
+                    <a href="login.html" class="btn btn-primary-custom btn-lg">
+                        <i class="fas fa-user-plus me-2"></i><span data-i18n="create_account">Créer un compte gratuit</span>
+                    </a>
+                    <p class="mt-3 text-muted">
+                        <span data-i18n="already_account">Déjà un compte ?</span> 
+                        <a href="login.html" style="color: var(--primary-color);" data-i18n="login_link">Connectez-vous</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h4><i class="fas fa-leaf me-2"></i>Carbonely</h4>
+                    <p class="mt-3" style="opacity: 0.8;" data-i18n="footer_description">
+                        Plateforme de mesure et réduction de l'empreinte carbone numérique. 
+                        Ensemble, construisons un avenir numérique durable.
+                    </p>
+                </div>
+                
+                <div class="col-lg-2 mb-4">
+                    <h5 data-i18n="navigation">Navigation</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#home" style="color: #cbd5e0; text-decoration: none;" data-i18n="nav_home">Accueil</a></li>
+                        <li class="mb-2"><a href="#features" style="color: #cbd5e0; text-decoration: none;" data-i18n="nav_features">Fonctionnalités</a></li>
+                        <li class="mb-2"><a href="#stats" style="color: #cbd5e0; text-decoration: none;" data-i18n="nav_impact">Impact</a></li>
+                        <li><a href="#about" style="color: #cbd5e0; text-decoration: none;" data-i18n="nav_about">À propos</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 mb-4">
+                    <h5 data-i18n="contact">Contact</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-envelope me-2"></i>
+                            <a href="mailto:contact@carbonely.com" style="color: #cbd5e0; text-decoration: none;">contact@carbonely.com</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            <span style="color: #cbd5e0;">Paris, France</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 mb-4">
+                    <h5 data-i18n="languages">Langues</h5>
+                    <div class="language-selector">
+                        <a href="#" data-lang="fr">Français</a> | 
+                        <a href="#" data-lang="en">English</a> | 
+                        <a href="#" data-lang="ar">العربية</a>
+                    </div>
+                </div>
+            </div>
+            
+            <hr style="border-color: #4a5568;">
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0" style="opacity: 0.8;">&copy; 2030 Carbonely. <span data-i18n="rights_reserved">Tous droits réservés.</span></p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p class="mb-0" style="opacity: 0.8;"></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Traductions - à déplacer dans translations.js si nécessaire
+        const translations = {
+            fr: {
+                hero_title: "Réduisez votre empreinte carbone numérique",
+                hero_description: "Carbonely est la plateforme qui vous aide à mesurer, analyser et réduire l'impact environnemental de vos activités numériques.",
+                start_now: "Commencer maintenant",
+                learn_more: "En savoir plus",
+                co2_streaming: "CO₂ Streaming",
+                co2_emails: "CO₂ Emails",
+                co2_cloud: "CO₂ Cloud",
+                features_title: "Fonctionnalités principales",
+                features_description: "Découvrez comment Carbonely peut vous aider à réduire votre impact environnemental",
+                feature1_title: "Suivi du Streaming",
+                feature1_description: "Mesurez l'impact carbone de vos sessions Netflix, YouTube et autres plateformes de streaming. Recevez des recommandations pour réduire votre consommation.",
+                feature2_title: "Gestion des Emails",
+                feature2_description: "Analysez l'empreinte carbone de votre boîte mail. Identifiez les emails inutiles et optimisez votre communication numérique.",
+                feature3_title: "Cloud Computing",
+                feature3_description: "Surveillez l'impact environnemental de votre stockage cloud et de vos services SaaS. Optimisez votre utilisation des ressources.",
+                feature4_title: "Appareils Électroniques",
+                feature4_description: "Suivez la consommation énergétique de vos appareils. Recevez des conseils pour prolonger leur durée de vie et réduire les déchets électroniques.",
+                feature5_title: "Tableau de Bord Intelligent",
+                feature5_description: "Visualisez vos progrès avec des graphiques interactifs. Suivez vos économies de CO₂ et comparez vos performances avec des objectifs personnalisés.",
+                feature6_title: "Recommandations Personnalisées",
+                feature6_description: "Recevez des conseils adaptés à vos habitudes numériques. Des actions concrètes pour réduire votre empreinte carbone au quotidien.",
+                impact_title: "Impact Environnemental",
+                impact_description: "Les chiffres qui démontrent l'importance de notre mission",
+                stat1_label: "% des émissions mondiales de CO₂",
+                stat1_description: "Provenant du secteur numérique",
+                stat2_label: "TWh d'électricité",
+                stat2_description: "Consommés par les data centers en 2023",
+                stat3_label: "Kg de CO₂",
+                stat3_description: "Pour 1 heure de streaming vidéo",
+                stat4_label: "Million de tonnes",
+                stat4_description: "Déchets électroniques générés annuellement",
+                cta_title: "Prêt à faire la différence ?",
+                cta_description: "Rejoignez des milliers d'utilisateurs qui ont déjà réduit leur empreinte carbone numérique grâce à Carbonely. C'est simple, efficace et cela fait une réelle différence pour notre planète.",
+                create_account: "Créer un compte gratuit",
+                already_account: "Déjà un compte ?",
+                login_link: "Connectez-vous",
+                footer_description: "Plateforme de mesure et réduction de l'empreinte carbone numérique. Ensemble, construisons un avenir numérique durable.",
+                navigation: "Navigation",
+                nav_home: "Accueil",
+                nav_features: "Fonctionnalités",
+                nav_impact: "Impact",
+                nav_about: "À propos",
+                contact: "Contact",
+                languages: "Langues",
+                rights_reserved: "Tous droits réservés."
+            },
+            en: {
+                hero_title: "Reduce Your Digital Carbon Footprint",
+                hero_description: "Carbonely is the platform that helps you measure, analyze and reduce the environmental impact of your digital activities.",
+                start_now: "Get Started Now",
+                learn_more: "Learn More",
+                co2_streaming: "CO₂ Streaming",
+                co2_emails: "CO₂ Emails",
+                co2_cloud: "CO₂ Cloud",
+                features_title: "Main Features",
+                features_description: "Discover how Carbonely can help you reduce your environmental impact",
+                feature1_title: "Streaming Tracking",
+                feature1_description: "Measure the carbon impact of your Netflix, YouTube and other streaming platform sessions. Receive recommendations to reduce your consumption.",
+                feature2_title: "Email Management",
+                feature2_description: "Analyze the carbon footprint of your mailbox. Identify unnecessary emails and optimize your digital communication.",
+                feature3_title: "Cloud Computing",
+                feature3_description: "Monitor the environmental impact of your cloud storage and SaaS services. Optimize your resource usage.",
+                feature4_title: "Electronic Devices",
+                feature4_description: "Track the energy consumption of your devices. Receive advice to extend their lifespan and reduce electronic waste.",
+                feature5_title: "Smart Dashboard",
+                feature5_description: "Visualize your progress with interactive charts. Track your CO₂ savings and compare your performance with personalized goals.",
+                feature6_title: "Personalized Recommendations",
+                feature6_description: "Receive advice tailored to your digital habits. Concrete actions to reduce your carbon footprint on a daily basis.",
+                impact_title: "Environmental Impact",
+                impact_description: "The numbers that demonstrate the importance of our mission",
+                stat1_label: "% of global CO₂ emissions",
+                stat1_description: "From the digital sector",
+                stat2_label: "TWh of electricity",
+                stat2_description: "Consumed by data centers in 2023",
+                stat3_label: "Kg of CO₂",
+                stat3_description: "For 1 hour of video streaming",
+                stat4_label: "Million tons",
+                stat4_description: "Electronic waste generated annually",
+                cta_title: "Ready to make a difference?",
+                cta_description: "Join thousands of users who have already reduced their digital carbon footprint thanks to Carbonely. It's simple, effective and makes a real difference for our planet.",
+                create_account: "Create a free account",
+                already_account: "Already have an account?",
+                login_link: "Log in",
+                footer_description: "Platform for measuring and reducing digital carbon footprint. Together, let's build a sustainable digital future.",
+                navigation: "Navigation",
+                nav_home: "Home",
+                nav_features: "Features",
+                nav_impact: "Impact",
+                nav_about: "About",
+                contact: "Contact",
+                languages: "Languages",
+                rights_reserved: "All rights reserved."
+            },
+            ar: {
+                hero_title: "قلل من بصمتك الكربونية الرقمية",
+                hero_description: "كربونيلي هي المنصة التي تساعدك على قياس وتحليل وتقليل التأثير البيئي لأنشطتك الرقمية.",
+                start_now: "ابدأ الآن",
+                learn_more: "اعرف المزيد",
+                co2_streaming: "ثاني أكسيد الكربون للبث",
+                co2_emails: "ثاني أكسيد الكربون للرسائل الإلكترونية",
+                co2_cloud: "ثاني أكسيد الكربون للسحابة",
+                features_title: "الميزات الرئيسية",
+                features_description: "اكتشف كيف يمكن لكربونيلي أن تساعدك في تقليل تأثيرك البيئي",
+                feature1_title: "تتبع البث",
+                feature1_description: "قياس تأثير الكربون لجلسات Netflix و YouTube ومنصات البث الأخرى. تلقي توصيات لتقليل استهلاكك.",
+                feature2_title: "إدارة البريد الإلكتروني",
+                feature2_description: "تحليل البصمة الكربونية لصندوق بريدك. تحديد الرسائل الإلكترونية غير الضرورية وتحسين اتصالاتك الرقمية.",
+                feature3_title: "الحوسبة السحابية",
+                feature3_description: "مراقبة التأثير البيئي لتخزين السحابة وخدمات SaaS. تحسين استخدام الموارد.",
+                feature4_title: "الأجهزة الإلكترونية",
+                feature4_description: "تتبع استهلاك الطاقة لأجهزتك. تلقي نصائح لإطالة عمرها الافتراضي وتقليل النفايات الإلكترونية.",
+                feature5_title: "لوحة التحكم الذكية",
+                feature5_description: "تصور تقدمك باستخدام الرسوم البيانية التفاعلية. تتبع مدخرات ثاني أكسيد الكربون وقارن أدائك مع الأهداف الشخصية.",
+                feature6_title: "توصيات مخصصة",
+                feature6_description: "تلقي نصائح مصممة خصيصًا لعاداتك الرقمية. إجراءات ملموسة لتقليل بصمتك الكربونية يوميًا.",
+                impact_title: "التأثير البيئي",
+                impact_description: "الأرقام التي تظهر أهمية مهمتنا",
+                stat1_label: "٪ من انبعاثات ثاني أكسيد الكربون العالمية",
+                stat1_description: "من القطاع الرقمي",
+                stat2_label: "تيراواط ساعة من الكهرباء",
+                stat2_description: "التي تستهلكها مراكز البيانات في 2023",
+                stat3_label: "كجم من ثاني أكسيد الكربون",
+                stat3_description: "لمدة ساعة واحدة من بث الفيديو",
+                stat4_label: "مليون طن",
+                stat4_description: "النفايات الإلكترونية المتولدة سنويا",
+                cta_title: "مستعد لصنع فرق؟",
+                cta_description: "انضم إلى الآلاف من المستخدمين الذين قاموا بالفعل بتقليل بصمتهم الكربونية الرقمية بفضل كربونيلي. إنها بسيطة وفعالة وتحدث فرقًا حقيقيًا لكوكبنا.",
+                create_account: "إنشاء حساب مجاني",
+                already_account: "لديك حساب بالفعل؟",
+                login_link: "تسجيل الدخول",
+                footer_description: "منصة لقياس وتقليل البصمة الكربونية الرقمية. معًا، لنبني مستقبلًا رقميًا مستدامًا.",
+                navigation: "التنقل",
+                nav_home: "الرئيسية",
+                nav_features: "الميزات",
+                nav_impact: "التأثير",
+                nav_about: "من نحن",
+                contact: "اتصل بنا",
+                languages: "اللغات",
+                rights_reserved: "جميع الحقوق محفوظة."
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Appliquer la langue sauvegardée
+            const savedLang = localStorage.getItem('preferredLanguage') || 'fr';
+            document.documentElement.lang = savedLang;
+            
+            // Définir la direction
+            if (savedLang === 'ar') {
+                document.documentElement.dir = 'rtl';
+            } else {
+                document.documentElement.dir = 'ltr';
+            }
+            
+            // Mettre à jour l'indicateur de langue
+            const langNames = { fr: 'FR', en: 'EN', ar: 'AR' };
+            document.getElementById('currentLang').textContent = langNames[savedLang];
+            
+            // Appliquer les traductions
+            applyTranslations(savedLang);
+            
+            // Gestion du mode sombre
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const darkModeIcon = darkModeToggle.querySelector('i');
+            
+            // Vérifier la préférence stockée
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                darkModeIcon.className = 'fas fa-sun';
+            }
+            
+            // Basculer le mode sombre
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDark);
+                darkModeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            });
+            
+            // Animation des compteurs
+            const counters = document.querySelectorAll('[data-count]');
+            counters.forEach(counter => {
+                const target = parseFloat(counter.getAttribute('data-count'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = current.toFixed(1);
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                // Déclencher l'animation quand l'élément est visible
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateCounter();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+                
+                observer.observe(counter);
+            });
+            
+            // Gestion des changements de langue
+            const langLinks = document.querySelectorAll('[data-lang]');
+            langLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lang = this.getAttribute('data-lang');
+                    localStorage.setItem('preferredLanguage', lang);
+                    location.reload();
+                });
+            });
+        });
+        
+        function applyTranslations(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.value = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
